@@ -1,4 +1,4 @@
-dislike
-=======
+This is your new Play 2.1 application
+=====================================
 
-The place where you share things you don't like.
+This file will be packaged with your application, when using `play dist`.
