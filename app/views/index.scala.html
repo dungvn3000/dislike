@@ -1,7 +1,30 @@
-@(message: String)
+@(footerItemDataList : List[FooterItemData], groupName: String, currentPage: Int)(implicit user: User)
 
-@main("Welcome to Play 2.1") {
-    
-    @play20.welcome(message)
-    
+@main(Messages("application.title")) {
+
+    @helper.requireJs(core = routes.Assets.at("js/lib/require.js").url, module = routes.Assets.at("js/news/news").url, folder = "js")
+
+    <div class="controls-row">
+        <div class="news-list span6">
+            @footerItemDataList.map { footerItemData =>
+                @news.item(footerItemData)
+            }
+        </div>
+        <div class="news-detail span6" data-spy="affix">
+        </div>
+    </div>
+
+    <div id="navigation" class="span6">
+        <ul class="pager">
+            <li class="next">
+                <a href="@routes.ApplicationController.group(groupName, currentPage + 1)">Next</a>
+            </li>
+            <li class="next">
+                <a href="@routes.ApplicationController.group(groupName, currentPage - 1)">Back</a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="scrolltotop"><a href="#"><i class="icon-chevron-up"></i><br/>Top</a></div>
+
 }

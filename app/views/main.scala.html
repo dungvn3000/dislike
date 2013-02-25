@@ -1,15 +1,30 @@
-@(title: String)(content: Html)
+@(title: String)(content: Html)(implicit user: User)
 
 <!DOCTYPE html>
 
 <html>
     <head>
-        <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/main.css")">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("img/favicon.ico")">
-        <script src="@routes.Assets.at("js/jquery-1.9.0.min.js")" type="text/javascript"></script>
+        @header(title)
     </head>
     <body>
-        @content
+
+        <div id="topmenu" class="navbar navbar-fixed-top">
+            @navbar()
+        </div>
+
+        <div class="container">
+            @content
+        </div>
+
+        <hr>
+
+        <footer>
+            <div class="container">
+                <p class="muted credit" style="text-align:center">
+                    © @Messages("application.url") 2013
+                </p>
+            </div>
+        </footer>
+
     </body>
 </html>

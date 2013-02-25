@@ -1,0 +1,51 @@
+@()(implicit user: User)
+
+@import UserWrapper._
+
+<div class="navbar-inner">
+    <div class="container-fluid">
+        <a class="brand" href="@routes.ApplicationController.index">@Messages("application.name")</a>
+
+        <form class="navbar-search pull-left">
+            <input type="text" class="input-xlarge" placeholder="Search">
+        </form>
+
+        <ul class="nav">
+        @user.followGroups.map { group =>
+            <li>
+                <a href="@routes.ApplicationController.group(group.toLowerCase)">@group</a>
+            </li>
+        }
+            <li>
+                <a href="@routes.ApplicationController.group("recommend")">Recommend</a>
+            </li>
+            <li>
+                <a href="@controllers.news.routes.UserFollowController.index">
+                    <i class="icon-plus"></i>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="nav pull-right">
+            <li>
+                <a href="@routes.UserHomeController.index">Home</a>
+            </li>
+            <li>
+                <a href="@routes.UserWallController.index">Wall</a>
+            </li>
+            <li class="divider-vertical"></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <b>@user.userName</b>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="@routes.LoginController.logout">Logout</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+</div>
