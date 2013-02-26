@@ -1,11 +1,13 @@
 package auth
 
-import jp.t2v.lab.play20.auth.AuthConfig
+import jp.t2v.lab.play20.auth.{IdContainer, CacheIdContainer, AuthConfig}
 import models.{User, Permission}
 import play.api.mvc._
 import play.api.mvc.Results._
 import controllers.routes
 import scala.reflect._
+import play.api.Play
+import play.api.Play.current
 
 /**
  * The Class AuthConfigImpl.
@@ -37,5 +39,8 @@ trait AuthConfigImpl extends AuthConfig {
   def authorizationFailed(request: RequestHeader) = Forbidden("bien di may")
 
   def authorize(user: User, authority: Authority) = User.login(user.username)
+
+  //Hacking auth plugin, keep session after reload application, this code won't work in production mode @dungvn3000
+  override lazy val idContainer: IdContainer[Id] = if (Play.isDev) new HackIdContainer else new CacheIdContainer[Id]
 
 }
