@@ -3,9 +3,10 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
+GET     /                           controllers.ApplicationController.index
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
-GET     /login                      controllers.Application.login(code: String)
+GET     /login                      controllers.LoginController.login
+GET     /auth                       controllers.LoginController.auth(code: String)

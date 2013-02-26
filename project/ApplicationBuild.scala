@@ -12,6 +12,7 @@ object ApplicationBuild extends Build {
     "joda-time" % "joda-time" % "2.1",
     "com.github.seratch" %% "inputvalidator" % "[0.2,)",
     "com.github.seratch" %% "inputvalidator-play" % "[0.2,)",
+    "jp.t2v" %% "play21.auth" % "0.7",
     "com.restfb" % "restfb" % "1.6.11"
   )
 
