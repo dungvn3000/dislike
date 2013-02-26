@@ -40,7 +40,7 @@
 </head>
 <body>
     <div class="container">
-        <form class="form-signin" action="@routes.LoginController.signup" method="post">
+        <form class="form-signin" action="" method="post">
             <h2 class="form-signin-heading">Register</h2>
             <div class="control-group @if(signUpForm.error("userName").isDefined) {error}">
             	<div class="controls">
@@ -74,7 +74,7 @@
               </div>
             }
             <button class="btn btn-primary" type="submit">Create an account</button>
-            <a href="@routes.LoginController.login" class="btn">Cancel</a>
+            <a href="" class="btn">Cancel</a>
         </form>
     </div>
 </body>

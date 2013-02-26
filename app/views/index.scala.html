@@ -1,4 +1,4 @@
-@(footerItemDataList : List[FooterItemData], groupName: String, currentPage: Int)(implicit user: User)
+@()
 
 @main(Messages("application.title")) {
 
@@ -6,9 +6,7 @@
 
     <div class="controls-row">
         <div class="news-list span6">
-            @footerItemDataList.map { footerItemData =>
-                @news.item(footerItemData)
-            }
+
         </div>
         <div class="news-detail span6" data-spy="affix">
         </div>
@@ -17,10 +15,10 @@
     <div id="navigation" class="span6">
         <ul class="pager">
             <li class="next">
-                <a href="@routes.ApplicationController.group(groupName, currentPage + 1)">Next</a>
+                <a href="">Next</a>
             </li>
             <li class="next">
-                <a href="@routes.ApplicationController.group(groupName, currentPage - 1)">Back</a>
+                <a href="">Back</a>
             </li>
         </ul>
     </div>
