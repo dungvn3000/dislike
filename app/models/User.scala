@@ -1,11 +1,11 @@
 package models
 
-import org.bson.types.ObjectId
 import com.novus.salat.dao.{SalatDAO, ModelCompanion}
 import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat._
 import play.api.Play.current
-import com.novus.salat.global._
+import com.novus.salat.Context
+import ModelContext._
 
 /**
  * The Class User.
@@ -22,16 +22,11 @@ case class User(
                  )
 
 object User extends ModelCompanion[User, ObjectId] {
+
   def dao = new SalatDAO[User, ObjectId](collection = mongoCollection("user")) {}
 
-  def findByUserName(userName: String) = findOne(MongoDBObject("userName" -> userName))
+  def findByUserName(username: String) = findOne(MongoDBObject("username" -> username))
 
-  def login(userName: String): Boolean = {
-    val user = findByUserName(userName)
-    if (user.isDefined) {
-      return true
-    }
-    false
-  }
+  def login(username: String): Boolean = findByUserName(username).isDefined
 
 }

@@ -9,4 +9,7 @@ GET     /                           controllers.ApplicationController.index
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 GET     /login                      controllers.LoginController.login
-GET     /auth                       controllers.LoginController.auth(code: String)
+
+#Facebook login
+GET     /facebook/login             controllers.FacebookController.login
+GET     /facebook/auth              controllers.FacebookController.auth(code: String)

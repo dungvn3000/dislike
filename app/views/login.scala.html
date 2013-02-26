@@ -1,4 +1,4 @@
-@(loginForm: Form[(String, String)])
+@()
 
 @import helper._
 
@@ -8,69 +8,48 @@
     @header(Messages("application.title"))
     <style>
         body {
-          padding-top: 40px;
-          padding-bottom: 40px;
-          background-color: #f5f5f5;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #f5f5f5;
         }
+
         .form-signin {
-          max-width: 300px;
-          padding: 19px 29px 29px;
-          margin: 0 auto 20px;
-          background-color: #fff;
-          border: 1px solid #e5e5e5;
-          -webkit-border-radius: 5px;
-             -moz-border-radius: 5px;
-                  border-radius: 5px;
-          -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-             -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-                  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+            max-width: 300px;
+            padding: 19px 29px 29px;
+            margin: 0 auto 20px;
+            background-color: #fff;
+            border: 1px solid #e5e5e5;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+            -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
         }
+
         .form-signin .form-signin-heading,
         .form-signin .checkbox {
-          margin-bottom: 10px;
+            margin-bottom: 10px;
         }
+
         .form-signin input[type="text"],
         .form-signin input[type="password"] {
-          font-size: 16px;
-          height: auto;
-          margin-bottom: 15px;
-          padding: 7px 9px;
+            font-size: 16px;
+            height: auto;
+            margin-bottom: 15px;
+            padding: 7px 9px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <form class="form-signin" action="" method="post">
-            <h2 class="form-signin-heading">Please sign in</h2>
-            <div class="control-group @if(loginForm.error("userName").isDefined) {error}">
-              <div class="controls">
-                <input type="text" class="input-block-level" placeholder="Username" name="userName" value="@loginForm("userName").value">
-                @if(loginForm.error("userName").isDefined) {
-                  <span class="help-inline">@loginForm.error("userName").get.message</span>
-                }
-              </div>
-            </div>
-            <div class="control-group @if(loginForm.error("passWord").isDefined) {error}">
-              <div class="controls">
-                <input type="password" class="input-block-level" placeholder="Password" name="passWord">
-                @if(loginForm.error("passWord").isDefined) {
-                  <span class="help-inline">@loginForm.error("passWord").get.message</span>
-                }
-              </div>
-            </div>
-            <label class="checkbox">
-                <input type="checkbox" value="remember-me"> Remember me
-            </label>
-            @loginForm.globalError.map { error =>
-              <div class="control-group error">
-                <span class="help-inline">
-                    @error.message
-                </span>
-              </div>
-            }
-            <button class="btn btn-primary" type="submit">Sign in</button>
-            <a href="" class="btn">Sign up</a>
-        </form>
-    </div>
+<div class="container">
+    <form class="form-signin" action="" method="post">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <a href="@routes.FacebookController.login">
+            <img src="/assets/img/facebook_icon.png" alt="Sign in with Facebook">
+        </a>
+        <img src="/assets/img/gmail_icon.jpg" alt="Sign in with Gmail">
+    </form>
+</div>
 </body>
 </html>
