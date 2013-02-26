@@ -11,7 +11,8 @@ object ApplicationBuild extends Build {
     "se.radley" %% "play-plugins-salat" % "1.2",
     "joda-time" % "joda-time" % "2.1",
     "com.github.seratch" %% "inputvalidator" % "[0.2,)",
-    "com.github.seratch" %% "inputvalidator-play" % "[0.2,)"
+    "com.github.seratch" %% "inputvalidator-play" % "[0.2,)",
+    "com.restfb" % "restfb" % "1.6.11"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
@@ -24,8 +25,7 @@ object ApplicationBuild extends Build {
       "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
       "Spray repo" at "http://repo.spray.io",
       "t2v.jp repo" at "http://www.t2v.jp/maven-repo/",
-      "Local Maven Repository" at "file://" + Path.userHome.absolutePath + "/.m2/repository",
-      Resolver.file("Local Repository", file(Path.userHome.absolutePath + "/.ivy2/local"))(Resolver.ivyStylePatterns)
+      "sonatype-oss-public" at "https://oss.sonatype.org/content/groups/public/"
     )
   )
 
