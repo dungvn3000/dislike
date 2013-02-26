@@ -1,4 +1,4 @@
-package controllers
+package controllers.login
 
 import play.api.mvc.{Action, Controller}
 

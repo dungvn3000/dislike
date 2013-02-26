@@ -34,7 +34,7 @@ trait AuthConfigImpl extends AuthConfig {
 
   def logoutSucceeded(request: RequestHeader) = Redirect(routes.ApplicationController.index())
 
-  def authenticationFailed(request: RequestHeader) = Redirect(routes.LoginController.login())
+  def authenticationFailed(request: RequestHeader) = Redirect(controllers.login.routes.LoginController.login())
 
   def authorizationFailed(request: RequestHeader) = Forbidden("bien di may")
 

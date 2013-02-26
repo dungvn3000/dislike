@@ -8,8 +8,10 @@ GET     /                           controllers.ApplicationController.index
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
-GET     /login                      controllers.LoginController.login
+GET     /login                      controllers.login.LoginController.login
 
 #Facebook login
-GET     /facebook/login             controllers.FacebookController.login
-GET     /facebook/auth              controllers.FacebookController.auth(code: String)
+GET     /facebook/login             controllers.login.FacebookController.login
+GET     /facebook/auth              controllers.login.FacebookController.auth(code: String)
+
+POST    /dislike/post               controllers.home.DislikeController.post

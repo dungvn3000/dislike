@@ -4,25 +4,21 @@
 
     @helper.requireJs(core = routes.Assets.at("js/lib/require.js").url, module = routes.Assets.at("js/news/news").url, folder = "js")
 
-    <div class="controls-row">
-        <div class="news-list span6">
-
-        </div>
-        <div class="news-detail span6" data-spy="affix">
-        </div>
+    <div class="span8 home-content">
+        @input.dislike_input()
     </div>
 
-    <div id="navigation" class="span6">
-        <ul class="pager">
-            <li class="next">
-                <a href="">Next</a>
-            </li>
-            <li class="next">
-                <a href="">Back</a>
-            </li>
-        </ul>
-    </div>
+    <!--<div id="navigation" class="span6">-->
+        <!--<ul class="pager">-->
+            <!--<li class="next">-->
+                <!--<a href="">Next</a>-->
+            <!--</li>-->
+            <!--<li class="next">-->
+                <!--<a href="">Back</a>-->
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</div>-->
 
-    <div id="scrolltotop"><a href="#"><i class="icon-chevron-up"></i><br/>Top</a></div>
+    <!--<div id="scrolltotop"><a href="#"><i class="icon-chevron-up"></i><br/>Top</a></div>-->
 
 }

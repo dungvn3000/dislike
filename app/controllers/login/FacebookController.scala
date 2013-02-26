@@ -1,4 +1,4 @@
-package controllers
+package controllers.login
 
 import play.api.mvc.{Action, Controller}
 import jp.t2v.lab.play20.auth.LoginLogout
@@ -23,7 +23,7 @@ object FacebookController extends Controller with LoginLogout with AuthConfigImp
 
   val app_id = "140099479491226"
   val app_secret = "7f5ca8df20e4002578cd17e2f4d997e9"
-  val redirect_url = "http://vketnoi.com:9000/facebook/auth"
+  val redirect_url = "http://kothich.com:9000/facebook/auth"
 
   def login = Action {
     val url = s"https://www.facebook.com/dialog/oauth?client_id=$app_id&redirect_uri=$redirect_url&scope=email"
@@ -50,7 +50,7 @@ object FacebookController extends Controller with LoginLogout with AuthConfigImp
         })
       }
     } else {
-      Redirect(routes.ApplicationController.index())
+      Redirect(controllers.routes.ApplicationController.index())
     }
   })
 

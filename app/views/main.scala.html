@@ -7,12 +7,16 @@
     </head>
     <body>
 
-        <div id="topmenu" class="navbar navbar-inverse navbar-fixed-top">
+        <div id="topmenu" class="navbar navbar-fixed-top">
             @navbar()
         </div>
 
         <div class="container">
-            @content
+            <div class="row-fluid">
+                @left_sidebar()
+                @content
+                @right_sidebar()
+            </div>
         </div>
 
         <hr>

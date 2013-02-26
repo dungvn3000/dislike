@@ -1,0 +1,9 @@
+@()
+@import controllers.home._
+
+<div class="span8">
+    <form class="form-inline" action="@routes.DislikeController.post" method="post">
+        <input class="span10" type="text" placeholder="What is your dislike?">
+        <button type="submit" class="btn">Post</button>
+    </form>
+</div>
