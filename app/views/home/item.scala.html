@@ -1,4 +1,4 @@
-@(dislike: Dislike)
+@(dislike: Dislike, comments: List[Comment])
 
 <div class="well-small row-fluid">
     <div class="home-item-avatar">
@@ -14,7 +14,7 @@
             <a href="">Chém gió</a> -
             <a href="">Bình luận</a>
         </div>
-        @comment(dislike)
+        @comment(dislike, comments)
     </div>
 </div>
 <div class="clearfix"></div>

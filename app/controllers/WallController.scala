@@ -8,8 +8,8 @@ import models.{Dislike, NormalUser}
 object WallController extends Controller with Auth with AuthConfigImpl {
 
   def index = authorizedAction(NormalUser)(implicit user => implicit request => {
-    val dislikes = Dislike.getUserDislike(user._id)
-    Ok(views.html.wall(dislikes))
+    val result = Dislike.getUserDislikeAndComment(user._id)
+    Ok(views.html.wall(result._1, result._2))
   })
 
 

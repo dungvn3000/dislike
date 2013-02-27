@@ -25,6 +25,8 @@
 .home-item-comment li {
     margin-top: 1px;
     background: #edeff4;
+    word-wrap: break-word;
+    overflow: hidden;
 }
 
 .home-item-status {

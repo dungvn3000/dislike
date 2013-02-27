@@ -1,23 +1,24 @@
-@(dislike: Dislike)
+@(dislike: Dislike, comments: List[Comment])
 
 @import controllers.wall._
 
 <div class="home-item-comment">
     <ul id="home-item-comment-list-@dislike._id">
-        <li>
-            <div class="well-small row-fluid">
-                <div class="span1">
-                    <img src="/assets/img/dungvn3000.jpg" alt="" width="30">
-                </div>
-                <div class="span10">
-                    <a href="">mr dislike</a> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    quis nostrud exercitation ullamco laboris ni
-                    <div>
-                        <a href="">Like</a>
+        @comments.map {comment =>
+            <li>
+                <div class="well-small row-fluid">
+                    <div class="span1">
+                        <img src="/assets/img/dungvn3000.jpg" alt="" width="30">
+                    </div>
+                    <div class="span10">
+                        <a href="">mr dislike</a> @comment.content
+                        <div>
+                            <a href="">Like</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </li>
+            </li>
+        }
     </ul>
     <ul>
         <li>
