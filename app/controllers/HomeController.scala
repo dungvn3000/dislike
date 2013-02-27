@@ -3,7 +3,7 @@ package controllers
 import play.api.mvc.Controller
 import jp.t2v.lab.play20.auth.Auth
 import auth.AuthConfigImpl
-import models.NormalUser
+import models.{Dislike, NormalUser}
 
 /**
  * The Class HomeController.
@@ -15,7 +15,8 @@ import models.NormalUser
 object HomeController extends Controller with Auth with AuthConfigImpl {
 
   def index =  authorizedAction(NormalUser)(implicit user => implicit request => {
-    Ok(views.html.home_page())
+    val result = Dislike.getUserDislikeAndComment
+    Ok(views.html.home_page(result._1, result._2))
   })
 
 }

@@ -1,9 +1,30 @@
-@()
+@(dislikes: List[Dislike], comments: List[Comment])(implicit user: User)
 
 @main(Messages("application.title")) {
 
-    <div class="span9 block home-content row-fluid">
+    @helper.requireJs(core = routes.Assets.at("js/lib/require.js").url, module = routes.Assets.at("js/wall/comment").url, folder = "js")
 
+    <div class="span9 block well-small home-content row-fluid">
+        @dislikes.map { dislike =>
+            @home.item(dislike, comments.filter(_.dislikeId == dislike._id))
+        }
     </div>
+
+    <script type="text/javascript">
+
+    </script>
+
+    <!--<div id="navigation" class="span6">-->
+        <!--<ul class="pager">-->
+            <!--<li class="next">-->
+                <!--<a href="">Next</a>-->
+            <!--</li>-->
+            <!--<li class="next">-->
+                <!--<a href="">Back</a>-->
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</div>-->
+
+    <!--<div id="scrolltotop"><a href="#"><i class="icon-chevron-up"></i><br/>Top</a></div>-->
 
 }

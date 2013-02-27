@@ -10,6 +10,8 @@
 
 .home-item-content {
     float: left;
+    word-wrap: break-word;
+    overflow: hidden;
 }
 
 .home-item-comment img {

@@ -26,6 +26,15 @@ case class Dislike(
 object Dislike extends ModelCompanion[Dislike, ObjectId] {
   def dao = new SalatDAO[Dislike, ObjectId](collection = mongoCollection("dislike")) {}
 
+  def getUserDislikeAndComment = {
+    val dislikes = find(MongoDBObject.empty).sort(MongoDBObject("created" -> -1)).toList
+    val comments = new ListBuffer[Comment]
+    dislikes.foreach(dislike => {
+      comments ++= Comment.find(MongoDBObject("dislikeId" -> dislike._id)).toList
+    })
+    (dislikes, comments.toList)
+  }
+
   def getUserDislikeAndComment(userId: ObjectId) = {
     val dislikes = find(MongoDBObject("userId" -> userId)).sort(MongoDBObject("created" -> -1)).toList
     val comments = new ListBuffer[Comment]
