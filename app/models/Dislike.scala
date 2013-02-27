@@ -21,7 +21,7 @@ case class Dislike(
                     content: String,
                     userId: ObjectId,
                     created: DateTime = DateTime.now()
-                    )
+                    ) extends BaseModel(_id)
 
 object Dislike extends ModelCompanion[Dislike, ObjectId] {
   def dao = new SalatDAO[Dislike, ObjectId](collection = mongoCollection("dislike")) {}

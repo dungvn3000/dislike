@@ -21,7 +21,7 @@ case class Comment(
                     userId: ObjectId,
                     content: String,
                     created: DateTime = DateTime.now()
-                    )
+                    ) extends BaseModel(_id)
 
 object Comment extends ModelCompanion[Comment, ObjectId] {
   def dao = new SalatDAO[Comment, ObjectId](collection = mongoCollection("comment")) {}

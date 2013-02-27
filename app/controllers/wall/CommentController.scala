@@ -21,14 +21,20 @@ object CommentController extends Controller with Auth with AuthConfigImpl {
     Form(tuple("content" -> nonEmptyText, "dislikeId" -> nonEmptyText)).bindFromRequest.fold(
       errors => BadRequest,
       tuple => {
-        Comment.insert(Comment(
+        val comment = Comment(
           userId = user._id,
           content = tuple._1,
           dislikeId = new ObjectId(tuple._2)
-        ))
-        Ok
+        )
+        Comment.insert(comment)
+        Ok(comment.id)
       }
     )
+  })
+
+  def delete(id: ObjectId) = authorizedAction(NormalUser)(implicit user => implicit request => {
+    Comment.removeById(id)
+    Ok
   })
 
 }

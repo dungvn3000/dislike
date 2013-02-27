@@ -5,8 +5,8 @@
 <div class="home-item-comment">
     <ul id="home-item-comment-list-@dislike._id">
         @comments.map {comment =>
-            <li>
-                <div class="well-small row-fluid">
+            <li id="home-item-comment-li-@comment.id">
+                <div class="well-small row-fluid" onmouseover="show_delete(this)" onmouseout="hide_delete(this)">
                     <div class="span1">
                         <img src="/assets/img/dungvn3000.jpg" alt="" width="30">
                     </div>
@@ -15,6 +15,9 @@
                         <div>
                             <a href="">Like</a>
                         </div>
+                    </div>
+                    <div class="home-item-comment-remover">
+                        <i class="icon-remove" onclick="delete_comment('@comment.id','@routes.CommentController.delete(comment._id)')"></i>
                     </div>
                 </div>
             </li>
