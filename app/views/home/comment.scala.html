@@ -1,7 +1,9 @@
-@()
+@(dislike: Dislike)
+
+@import controllers.wall._
 
 <div class="home-item-comment">
-    <ul>
+    <ul id="home-item-comment-list-@dislike._id">
         <li>
             <div class="well-small row-fluid">
                 <div class="span1">
@@ -16,13 +18,15 @@
                 </div>
             </div>
         </li>
+    </ul>
+    <ul>
         <li>
             <div class="well-small row-fluid">
                 <div class="span1">
                     <img src="/assets/img/dungvn3000.jpg" alt="" width="30">
                 </div>
                 <div class="span10">
-                    <input type="text" class="input-block-level" placeholder="Write a comment">
+                    <input type="text" onkeypress="post_comment(event, '@routes.CommentController.post', this, '@dislike._id', '/assets/img/dungvn3000.jpg', 'mr dislike', '/wall/dungvn3000')" class="input-block-level" placeholder="Write a comment">
                 </div>
             </div>
         </li>

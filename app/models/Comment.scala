@@ -17,8 +17,9 @@ import ModelContext._
  */
 case class Comment(
                     _id: ObjectId = new ObjectId(),
+                    dislikeId: ObjectId,
                     userId: ObjectId,
-                    message: String,
+                    content: String,
                     created: DateTime = DateTime.now()
                     )
 

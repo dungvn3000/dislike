@@ -17,3 +17,4 @@ GET     /facebook/login             controllers.login.FacebookController.login
 GET     /facebook/auth              controllers.login.FacebookController.auth(code: String)
 
 POST    /dislike/post               controllers.wall.DislikeController.post
+POST    /comment/post               controllers.wall.CommentController.post
