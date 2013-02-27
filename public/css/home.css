@@ -6,3 +6,16 @@
     float: left;
     margin-left: 10px;
 }
+
+.home-item-comment {
+}
+
+.home-item-comment ul {
+    list-style: none;
+    margin: 0 !important;
+}
+
+.home-item-comment li {
+    margin-top: 1px;
+    background: #edeff4;
+}
