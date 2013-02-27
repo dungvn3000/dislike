@@ -1,5 +1,11 @@
 .home-item-avatar {
     float: left;
+    padding-top: 3px;
+}
+
+.home-item-avatar img {
+    width: 32px;
+    height: 32px !important;
 }
 
 .home-item-content {
@@ -18,4 +24,8 @@
 .home-item-comment li {
     margin-top: 1px;
     background: #edeff4;
+}
+
+.home-item-status {
+    color: gray;
 }
