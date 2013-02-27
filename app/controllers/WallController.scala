@@ -9,7 +9,7 @@ object WallController extends Controller with Auth with AuthConfigImpl {
 
   def index = authorizedAction(NormalUser)(implicit user => implicit request => {
     val dislikes = Dislike.getUserDislike(user._id)
-    Ok(views.html.index(dislikes))
+    Ok(views.html.wall(dislikes))
   })
 
 
