@@ -1,12 +1,19 @@
-@()
+@(dislikes: List[Dislike])(implicit user: User)
 
 @main(Messages("application.title")) {
 
     @helper.requireJs(core = routes.Assets.at("js/lib/require.js").url, module = routes.Assets.at("js/news/news").url, folder = "js")
 
-    <div class="span8 home-content">
+    <div class="span8 home-content row-fluid">
         @input.dislike_input()
+        @dislikes.map { dislike =>
+            @home.item(dislike)
+        }
     </div>
+
+    <script type="text/javascript">
+
+    </script>
 
     <!--<div id="navigation" class="span6">-->
         <!--<ul class="pager">-->

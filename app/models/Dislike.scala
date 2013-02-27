@@ -17,12 +17,16 @@ import org.joda.time.DateTime
  */
 case class Dislike(
                     _id: ObjectId = new ObjectId(),
-                    target: String,
-                    comment: String,
+                    content: String,
                     userId: ObjectId,
                     created: DateTime = DateTime.now()
                     )
 
 object Dislike extends ModelCompanion[Dislike, ObjectId] {
   def dao = new SalatDAO[Dislike, ObjectId](collection = mongoCollection("dislike")) {}
+
+  def getUserDislike(userId: ObjectId) = {
+    val dislikes = find(MongoDBObject("userId" -> userId)).sort(MongoDBObject("created" -> -1)).toList
+    dislikes
+  }
 }
