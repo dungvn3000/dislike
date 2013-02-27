@@ -1,20 +1,21 @@
 @(dislike: Dislike)
 
-<div class="well-small">
+<div class="well-small row-fluid">
     <div class="home-item-avatar">
         <img src="/assets/img/dungvn3000.jpg" alt="dungvn3000">
     </div>
-    <div class="home-item-content span10">
+    <div class="home-item-content span9">
         <div class="home-item-status">
-            <a href="">mr dislike</a> vua` khong thich'
+            <a href="">mr dislike</a> vừa không thích
         </div>
         <div>@dislike.content</div>
         <div>
-            <a href="">Nem da'</a> -
-            <a href="">Comment</a>
+            <a href="">Ném đá</a> -
+            <a href="">Chém gió</a> -
+            <a href="">Bình luận</a>
         </div>
+        @comment()
     </div>
-    @comment()
 </div>
 <div class="clearfix"></div>
 <hr>

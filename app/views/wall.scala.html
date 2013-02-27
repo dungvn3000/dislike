@@ -4,7 +4,7 @@
 
     @helper.requireJs(core = routes.Assets.at("js/lib/require.js").url, module = routes.Assets.at("js/news/news").url, folder = "js")
 
-    <div class="span9 home-content row-fluid">
+    <div class="span9 block well-small home-content row-fluid">
         @input.dislike_input()
         @dislikes.map { dislike =>
             @home.item(dislike)
