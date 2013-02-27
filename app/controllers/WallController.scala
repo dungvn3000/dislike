@@ -5,7 +5,7 @@ import auth.AuthConfigImpl
 import jp.t2v.lab.play20.auth.Auth
 import models.{Dislike, NormalUser}
 
-object ApplicationController extends Controller with Auth with AuthConfigImpl {
+object WallController extends Controller with Auth with AuthConfigImpl {
 
   def index = authorizedAction(NormalUser)(implicit user => implicit request => {
     val dislikes = Dislike.getUserDislike(user._id)

@@ -30,9 +30,9 @@ trait AuthConfigImpl extends AuthConfig {
 
   implicit val idTag: ClassTag[Id] = classTag[Id]
 
-  def loginSucceeded(request: RequestHeader) = Redirect(routes.ApplicationController.index())
+  def loginSucceeded(request: RequestHeader) = Redirect(routes.WallController.index())
 
-  def logoutSucceeded(request: RequestHeader) = Redirect(routes.ApplicationController.index())
+  def logoutSucceeded(request: RequestHeader) = Redirect(routes.WallController.index())
 
   def authenticationFailed(request: RequestHeader) = Redirect(controllers.login.routes.LoginController.login())
 

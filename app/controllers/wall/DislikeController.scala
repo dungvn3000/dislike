@@ -1,4 +1,4 @@
-package controllers.home
+package controllers.wall
 
 import play.api.mvc.Controller
 import models.{NormalUser, Dislike}
@@ -23,7 +23,7 @@ object DislikeController extends Controller with Auth with AuthConfigImpl {
           userId = user._id,
           content = content
         ))
-        Redirect(controllers.routes.ApplicationController.index())
+        Redirect(controllers.routes.WallController.index())
       }
     )
   })
