@@ -11,6 +11,7 @@ GET     /wall                       controllers.WallController.index
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 GET     /login                      controllers.login.LoginController.login
+GET     /logout                     controllers.login.LoginController.logout
 
 #Facebook login
 GET     /facebook/login             controllers.login.FacebookController.login
