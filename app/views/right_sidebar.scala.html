@@ -1,27 +1,10 @@
-@()
+@()(implicit user: User)
 
 <div class="span2 right-sidebar">
     <div>
-        <img src="/assets/img/dungvn3000.jpg" alt="" width="100px" height="100px">
-        <h5>Mr Dislike</h5>
-        <hr>
-        Da bi nem'
-        <ul class="unstyled">
-            <li><strong>100</strong> cuc da'</li>
-        </ul>
-    </div>
-    <hr>
-    <div>
-        <ul class="unstyled">
-            <li>
-                <img src="/assets/img/dungvn3000.jpg" alt="" width="16"> <a href="">mr dislike</a> <strong>100</strong>
-            </li>
-            <li>
-                <img src="/assets/img/tool/beat-brick-icon.png" alt="" width="16"> <a href="">huy vu sua</a> <strong>91</strong>
-            </li>
-            <li>
-                <img src="/assets/img/tool/beat-shot-icon.png" alt="" width="16"> <a href="">nam tho noc</a> <strong>34</strong>
-            </li>
-        </ul>
+        <a href="/wall"><img src="/profile/avatar" alt="" width="100px" height="100px"></a>
+        <a href=""><h5>@user.name</h5></a>
+
+        <p>@user.quote</p>
     </div>
 </div>

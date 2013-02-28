@@ -2,5 +2,18 @@
 
 @main(Messages("application.title")) {
     <div class="span9 block well-small home-content row-fluid">
+        <form action="/profile/update" method="post" enctype="multipart/form-data">
+            <fieldset>
+                <legend>Update your profile</legend>
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" value="@user.name">
+                <label for="quote">Cau noi' ua thich'</label>
+                <input id="quote" name="quote" type="text" value="@user.quote">
+                <label for="avatar">Avatar</label>
+                <input id="avatar" name="avatar" type="file">
+                <span class="help-block"></span>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </fieldset>
+        </form>
     </div>
 }

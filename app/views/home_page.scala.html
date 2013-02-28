@@ -1,4 +1,4 @@
-@(dislikes: List[Dislike], comments: List[Comment])(implicit user: User)
+@(dislikes: List[Dislike], comments: List[Comment], users: List[User])(implicit user: User)
 
 @main(Messages("application.title")) {
 
@@ -6,7 +6,7 @@
 
     <div class="span9 block well-small home-content row-fluid">
         @dislikes.map { dislike =>
-            @home.item(dislike, comments.filter(_.dislikeId == dislike._id))
+            @home.item(dislike, comments.filter(_.dislikeId == dislike._id), users)
         }
     </div>
 

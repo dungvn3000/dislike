@@ -6,6 +6,7 @@ GET     /                           controllers.HomeController.index
 
 # Wall page
 GET     /wall                       controllers.WallController.index
+GET     /wall/:username             controllers.WallController.wall(username: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
@@ -23,3 +24,6 @@ POST    /comment/post               controllers.wall.CommentController.post
 POST    /comment/delete/            controllers.wall.CommentController.delete(id: ObjectId)
 
 GET     /profile                    controllers.ProfileController.index
+POST    /profile/update             controllers.ProfileController.update
+GET     /profile/avatar             controllers.ProfileController.avatar
+GET     /profile/avatar/:username   controllers.ProfileController.avatarOf(username: String)

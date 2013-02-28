@@ -1,17 +1,20 @@
-@(dislike: Dislike, comments: List[Comment])
+@(dislike: Dislike, comments: List[Comment], users: List[User])(implicit user: User)
 
 @import controllers.wall._
 
 <div class="home-item-comment">
     <ul id="home-item-comment-list-@dislike._id">
         @comments.map {comment =>
+            @users.find(_._id == comment.userId).map {user =>
             <li id="home-item-comment-li-@comment.id">
                 <div class="well-small row-fluid" onmouseover="show_delete(this)" onmouseout="hide_delete(this)">
                     <div class="span1">
-                        <img src="/assets/img/dungvn3000.jpg" alt="" width="30">
+                        <a href="/wall/@user.username">
+                            <img src="/profile/avatar/@user.username" alt="" width="30">
+                        </a>
                     </div>
                     <div class="span10">
-                        <a href="">mr dislike</a> @comment.content
+                        <a href="/wall/@user.username">@user.name</a> @comment.content
                         <div>
                             <a href="">Like</a>
                         </div>
@@ -21,16 +24,17 @@
                     </div>
                 </div>
             </li>
+            }
         }
     </ul>
     <ul>
         <li>
             <div class="well-small row-fluid">
                 <div class="span1">
-                    <img src="/assets/img/dungvn3000.jpg" alt="" width="30">
+                    <img src="/profile/avatar" alt="" width="30">
                 </div>
                 <div class="span10">
-                    <input type="text" onkeypress="post_comment(event, '@routes.CommentController.post', this, '@dislike._id', '/assets/img/dungvn3000.jpg', 'mr dislike', '/wall/dungvn3000')" class="input-block-level" placeholder="Write a comment">
+                    <input type="text" onkeypress="post_comment(event, '@routes.CommentController.post', this, '@dislike._id', '/profile/avatar', '@user.name', '/wall/@user.username')" class="input-block-level" placeholder="Write a comment">
                 </div>
             </div>
         </li>
