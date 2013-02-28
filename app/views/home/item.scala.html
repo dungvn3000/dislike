@@ -1,20 +1,23 @@
 @(dislike: Dislike, comments: List[Comment], users: List[User])(implicit user: User)
 
 <div class="well-small row-fluid">
-    <div class="home-item-avatar">
-        <img src="/profile/avatar" alt="dungvn3000">
-    </div>
-    <div class="home-item-content span9">
-        <div class="home-item-status">
-            <a href="/wall">@user.name</a> vừa không thích
+    @users.find(_._id == dislike.userId).map{postedUser =>
+        <div class="home-item-avatar">
+            <img src="/profile/avatar/@postedUser.username" alt="dungvn3000">
         </div>
-        <div>@dislike.content</div>
-        <div>
-            <a href="">Ném đá</a> -
-            <a href="">Chém gió</a>
+        <div class="home-item-content span9">
+            <div class="home-item-status">
+                <a href="/wall/@postedUser.username">@postedUser.name</a> vừa không thích
+            </div>
+            <div>@dislike.content</div>
+            <div>
+                <a href="">Ném đá</a> -
+                <a href="">Chém gió</a>
+            </div>
+            @comment(dislike, comments, users)
         </div>
-        @comment(dislike, comments, users)
-    </div>
+    }
+
 </div>
 <div class="clearfix"></div>
 <hr>

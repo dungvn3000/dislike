@@ -30,9 +30,9 @@ trait AuthConfigImpl extends AuthConfig {
 
   implicit val idTag: ClassTag[Id] = classTag[Id]
 
-  def loginSucceeded(request: RequestHeader) = Redirect(routes.WallController.index())
+  def loginSucceeded(request: RequestHeader) = Redirect(routes.HomeController.index())
 
-  def logoutSucceeded(request: RequestHeader) = Redirect(routes.WallController.index())
+  def logoutSucceeded(request: RequestHeader) = Redirect(routes.HomeController.index())
 
   def authenticationFailed(request: RequestHeader) = Redirect(controllers.login.routes.LoginController.login())
 
@@ -41,6 +41,6 @@ trait AuthConfigImpl extends AuthConfig {
   def authorize(user: User, authority: Authority) = User.login(user.username)
 
   //Hacking auth plugin, keep session after reload application, this code won't work in production mode @dungvn3000
-  override lazy val idContainer: IdContainer[Id] = if (Play.isDev) new HackIdContainer else new CacheIdContainer[Id]
+  override lazy val idContainer: IdContainer[Id] = new CacheIdContainer[Id]
 
 }

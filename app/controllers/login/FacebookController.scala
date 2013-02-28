@@ -50,7 +50,7 @@ object FacebookController extends Controller with LoginLogout with AuthConfigImp
         })
       }
     } else {
-      Redirect(controllers.routes.WallController.index())
+      Redirect(controllers.routes.HomeController.index())
     }
   })
 
