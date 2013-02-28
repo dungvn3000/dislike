@@ -17,6 +17,7 @@ import ModelContext._
 case class User(
                  _id: ObjectId = new ObjectId(),
                  username: String,
+                 avatar: Option[Array[Byte]] = None,
                  name: String,
                  email: String
                  )

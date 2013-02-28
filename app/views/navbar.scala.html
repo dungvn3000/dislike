@@ -1,4 +1,4 @@
-@()
+@()(implicit user: User)
 
 <div class="navbar-inner">
     <div class="container">
@@ -16,7 +16,7 @@
         <ul class="nav pull-right">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <b>dung</b>
+                    <b>@user.username</b>
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">

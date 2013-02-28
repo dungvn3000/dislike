@@ -25,10 +25,9 @@ object FacebookController extends Controller with LoginLogout with AuthConfigImp
   val app_secret = "7f5ca8df20e4002578cd17e2f4d997e9"
   val redirect_url = "http://kothich.com:9000/facebook/auth"
 
-  def login = Action (implicit request => {
+  def login = Action(implicit request => {
     val url = s"https://www.facebook.com/dialog/oauth?client_id=$app_id&redirect_uri=$redirect_url&scope=email"
-    gotoLoginSucceeded("dungvn30000")
-    //    Redirect(url)
+    Redirect(url)
   })
 
   def auth(code: String) = Action(implicit request => {

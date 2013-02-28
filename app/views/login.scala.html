@@ -44,8 +44,14 @@
 </head>
 <body>
 <div class="container">
-    <form class="form-signin" action="" method="post">
+    <form class="form-signin" action="/auth" method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
+        <div class="control-group">
+          <div class="controls">
+          </div>
+            <input type="text" class="input-block-level" placeholder="Username" name="username">
+        </div>
+        <button class="btn btn-primary" type="submit">Sign in</button>
         <a href="@routes.FacebookController.login">
             <img src="/assets/img/facebook_icon.png" alt="Sign in with Facebook">
         </a>
