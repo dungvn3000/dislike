@@ -41,6 +41,6 @@ trait AuthConfigImpl extends AuthConfig {
   def authorize(user: User, authority: Authority) = User.login(user.username)
 
   //Hacking auth plugin, keep session after reload application, this code won't work in production mode @dungvn3000
-  override lazy val idContainer: IdContainer[Id] = new CacheIdContainer[Id]
+  override lazy val idContainer: IdContainer[Id] = if (Play.isDev) new HackIdContainer else new CacheIdContainer[Id]
 
 }

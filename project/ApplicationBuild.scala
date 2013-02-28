@@ -18,6 +18,7 @@ object ApplicationBuild extends Build {
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
     requireJsFolder += "js",
+    requireJs += "wall/comment",
     routesImport += "se.radley.plugin.salat.Binders._",
     templatesImport ++= Seq(
       "org.bson.types.ObjectId"
