@@ -22,4 +22,4 @@ POST    /dislike/post               controllers.wall.DislikeController.post
 POST    /comment/post               controllers.wall.CommentController.post
 POST    /comment/delete/            controllers.wall.CommentController.delete(id: ObjectId)
 
-GET     /profile/                   controllers.profile.ProfileController.index
+GET     /profile                    controllers.ProfileController.index

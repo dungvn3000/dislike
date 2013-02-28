@@ -1,8 +1,9 @@
-package controllers.profile
+package controllers
 
 import jp.t2v.lab.play20.auth.Auth
 import auth.AuthConfigImpl
 import play.api.mvc.Controller
+import models.NormalUser
 
 /**
  * The Class ProfileController.
@@ -12,5 +13,7 @@ import play.api.mvc.Controller
  *
  */
 object ProfileController extends Controller with Auth with AuthConfigImpl {
-  def index = TODO
+  def index = authorizedAction(NormalUser)(implicit user => implicit request => {
+    Ok(views.html.profile_page())
+  })
 }
