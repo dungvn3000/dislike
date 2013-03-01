@@ -24,6 +24,7 @@ case class Dislike(
                     image: Option[Array[Byte]] = None,
                     title: Option[String] = None,
                     description: Option[String] = None,
+                    featureImage: Option[Array[Byte]] = None,
                     created: DateTime = DateTime.now()
                     ) extends BaseModel(_id)
 

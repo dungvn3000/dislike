@@ -21,6 +21,7 @@ GET     /facebook/auth              controllers.login.FacebookController.auth(co
 
 POST    /dislike/post               controllers.wall.DislikeController.post
 GET     /dislike/image/:id          controllers.wall.DislikeController.image(id: ObjectId)
+GET     /dislike/featureImage/:id   controllers.wall.DislikeController.featureImage(id: ObjectId)
 
 POST    /comment/post               controllers.wall.CommentController.post
 POST    /comment/delete/            controllers.wall.CommentController.delete(id: ObjectId)

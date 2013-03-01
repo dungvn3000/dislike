@@ -16,9 +16,16 @@
                 }
                 @dislike.image.map{image =>
                     <a href='@dislike.url.getOrElse("#")' target="_blank">
-                        <img src="/dislike/image/@dislike._id" alt="" width="480">
+                        <img src="/dislike/image/@dislike._id" alt="" width="300" style="height: 300px !important;">
                     </a>
                 }
+
+                @dislike.featureImage.map{image =>
+                    <div class="span3" style="padding-right: 5px">
+                        <img src="/dislike/featureImage/@dislike.id" alt="">
+                    </div>
+                }
+
                 @dislike.description.map{description =>
                     <div>
                         @description
@@ -29,6 +36,8 @@
                 <a href="">Ném đá</a> -
                 <a href="">Chém gió</a>
             </div>
+            <div class="clearfix"></div>
+            <br>
             @comment(dislike, comments, users)
         </div>
     }

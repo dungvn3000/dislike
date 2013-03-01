@@ -1,15 +1,19 @@
-@(dislikes: List[Dislike], comments: List[Comment], users: List[User])(implicit user: User)
+@(dislikes: List[Dislike], comments: List[Comment], users: List[User], userWall: Option[User] = None)(implicit user: User)
 
 @main(Messages("application.title")) {
 
     @helper.requireJs(core = routes.Assets.at("js/lib/require.js").url, module = routes.Assets.at("js/wall/comment").url, folder = "js")
 
-    <div class="span9 block well-small home-content row-fluid">
-        @input.dislike_input()
-        @dislikes.map { dislike =>
-            @home.item(dislike, comments.filter(_.dislikeId == dislike._id), users)
-        }
+    <div class="row-fluid">
+        <div class="span9 block well-small home-content row-fluid">
+            @dislikes.map { dislike =>
+                @home.item(dislike, comments.filter(_.dislikeId == dislike._id), users)
+            }
+        </div>
+        @right_sidebar()(userWall.getOrElse(user))
     </div>
+
+
 
     <script type="text/javascript">
 

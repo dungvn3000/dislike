@@ -17,7 +17,7 @@ object WallController extends Controller with Auth with AuthConfigImpl {
     User.findByUserName(username).map(otherUser => {
       val result = Dislike.getUserDislikeAndComment(otherUser._id)
       val users = User.findAll().toList
-      Ok(views.html.wall(result._1, result._2, users))
+      Ok(views.html.wall(result._1, result._2, users, Some(otherUser)))
     }).getOrElse(BadRequest)
   })
 

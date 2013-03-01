@@ -17,7 +17,8 @@ object ApplicationBuild extends Build {
     "com.github.sonic" %% "sonic_extractor" % "0.0.1",
     "com.google.code.crawler-commons" % "crawler-commons" % "0.2",
     "net.coobird" % "thumbnailator" % "0.4.3",
-    "org.linkerz" %% "linkerz_parser" % "0.1-SNAPSHOT"
+    "org.linkerz" %% "linkerz_parser" % "0.1-SNAPSHOT",
+    "org.linkerz" %% "url_builder" % "0.1-SNAPSHOT"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(

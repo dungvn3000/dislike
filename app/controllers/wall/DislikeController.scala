@@ -21,6 +21,15 @@ import javax.imageio.ImageIO
 import net.coobird.thumbnailator.Thumbnails
 import org.linkerz.parser.ArticleParser
 import org.jsoup.Jsoup
+import collection.mutable
+import org.apache.commons.validator.routines.UrlValidator
+import org.apache.commons.lang.StringUtils
+import edu.uci.ics.crawler4j.url.URLCanonicalizer
+import gumi.builders.UrlBuilder
+import org.apache.http.client.utils.URIUtils
+import java.net.URI
+import collection.mutable.ListBuffer
+import java.awt.image.BufferedImage
 
 /**
  * The Class DislikeController.
@@ -48,8 +57,10 @@ object DislikeController extends Controller with Auth with AuthConfigImpl {
           if (webUrlExtractor.results.size > 0) {
             try {
               val fetcher = new SimpleHttpFetcher(100, new FireFoxUserAgent)
+              fetcher.setMaxContentSize("image/jpeg", 1024 * 1024)
               val url = webUrlExtractor.results(0)
               val result = fetcher.fetch(url)
+              val contentWithOutUrl = content.replaceAll(url, "")
               if (result.getStatusCode == HttpStatus.SC_OK && result.getContentLength > 0) {
                 if (result.getContentType.contains("image/jpeg")) {
                   val bytes = result.getContent
@@ -57,7 +68,7 @@ object DislikeController extends Controller with Auth with AuthConfigImpl {
                   val image = ImageIO.read(inputStream)
                   val outputStream = new ByteArrayOutputStream
                   Thumbnails.of(image).size(400, 400).outputFormat("jpeg").toOutputStream(outputStream)
-                  dislike = dislike.copy(image = Some(outputStream.toByteArray) , url = Some(url))
+                  dislike = dislike.copy(image = Some(outputStream.toByteArray), url = Some(url), content = contentWithOutUrl)
                   outputStream.close()
                   inputStream.close()
                 } else if (result.getContentType.contains("text/html")) {
@@ -65,12 +76,76 @@ object DislikeController extends Controller with Auth with AuthConfigImpl {
                   val inputStream = new ByteArrayInputStream(result.getContent)
                   val doc = Jsoup.parse(inputStream, null, url)
                   val article = articleParser.parse(doc)
-                  dislike = dislike.copy(title = Some(article.title), url = Some(url))
+                  dislike = dislike.copy(title = Some(article.title), url = Some(url), content = contentWithOutUrl)
                   val description = article.description()
                   if (description.size > 0) {
-                    dislike = dislike.copy(description = Some(description))
+                    dislike = dislike.copy(description = Some(description), content = contentWithOutUrl)
                   }
                   inputStream.close()
+
+                  //find feature image
+                  val potentialImages = new mutable.HashSet[String]
+                  val urlValidator = new UrlValidator(Array("http", "https"))
+                  article.images.foreach(image => {
+                    val imgSrc = UrlBuilder.fromString(image.src).toString
+                    val baseUrl = URIUtils.extractHost(new URI(url)).toURI
+                    if (StringUtils.isNotBlank(imgSrc)) {
+                      val imageUrl = URLCanonicalizer.getCanonicalURL(imgSrc, baseUrl)
+                      if (StringUtils.isNotBlank(url) && urlValidator.isValid(url)) {
+                        potentialImages += imageUrl
+                      }
+                    }
+                  })
+
+                  val scoreImage = new ListBuffer[(BufferedImage, Double)]
+
+                  var skip = false
+                  potentialImages.foreach(imageUrl => if (!skip) {
+                    try {
+                      val result = fetcher.get(imageUrl)
+                      if (result.getStatusCode == HttpStatus.SC_OK && result.getContentLength > 0) {
+                        try {
+                          val bytes = result.getContent
+                          val inputStream = new ByteArrayInputStream(bytes)
+                          val image = ImageIO.read(inputStream)
+                          val score = image.getWidth + image.getHeight
+                          if (score >= 300) {
+                            scoreImage += image -> score
+                          }
+                          inputStream.close()
+
+                          //Avoid download too much images, if the image score is 600, definitely it is good.
+                          if (score >= 600) {
+                            skip = true
+                          }
+
+                        } catch {
+                          case ex: Exception => {
+                            Logger.error(ex.getMessage, ex)
+                          }
+                        }
+                      }
+                    } catch {
+                      case ex: Exception => {
+                        Logger.error(ex.getMessage, ex)
+                      }
+                    }
+                  })
+
+                  if (!scoreImage.isEmpty) {
+                    val bestImage = scoreImage.sortBy(-_._2).head._1
+                    val outputStream = new ByteArrayOutputStream
+                    try {
+                      Thumbnails.of(bestImage).size(150, 150).outputFormat("jpeg").toOutputStream(outputStream)
+                      dislike = dislike.copy(featureImage = Some(outputStream.toByteArray))
+                    } catch {
+                      case ex: Exception => {
+                        Logger.error(ex.getMessage, ex)
+                      }
+                    } finally {
+                      outputStream.close()
+                    }
+                  }
                 }
               }
             } catch {
@@ -79,7 +154,7 @@ object DislikeController extends Controller with Auth with AuthConfigImpl {
           }
 
           Dislike.insert(dislike)
-          Redirect(controllers.routes.WallController.index())
+          Redirect(controllers.routes.HomeController.index())
         }
       )
     }
@@ -98,4 +173,13 @@ object DislikeController extends Controller with Auth with AuthConfigImpl {
     }).getOrElse(Redirect("/assets/img/tool/beat-brick-icon.png"))
   })
 
+  def featureImage(id: ObjectId) = authorizedAction(NormalUser)(implicit user => implicit request => {
+    val dislike = Dislike.findOneById(id).getOrElse(throw new Exception("Can't find id " + id))
+    dislike.featureImage.map(bytes => {
+      SimpleResult(
+        header = ResponseHeader(200, Map(CONTENT_TYPE -> "image/jpeg")),
+        body = Enumerator.fromStream(new ByteArrayInputStream(bytes))
+      )
+    }).getOrElse(Redirect("/assets/img/tool/beat-brick-icon.png"))
+  })
 }

@@ -4,11 +4,14 @@
 
     @helper.requireJs(core = routes.Assets.at("js/lib/require.js").url, module = routes.Assets.at("js/wall/comment").url, folder = "js")
 
-    <div class="span9 block well-small home-content row-fluid">
-        @input.dislike_input()
-        @dislikes.map { dislike =>
-            @home.item(dislike, comments.filter(_.dislikeId == dislike._id), users)
-        }
+    <div class="row-fluid">
+        <div class="span9 block well-small home-content row-fluid">
+            @input.dislike_input()
+            @dislikes.map { dislike =>
+                @home.item(dislike, comments.filter(_.dislikeId == dislike._id), users)
+            }
+        </div>
+        @right_sidebar()
     </div>
 
     <script type="text/javascript">
