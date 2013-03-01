@@ -21,7 +21,6 @@ import javax.imageio.ImageIO
 import net.coobird.thumbnailator.Thumbnails
 import org.linkerz.parser.ArticleParser
 import org.jsoup.Jsoup
-import collection.mutable
 import org.apache.commons.validator.routines.UrlValidator
 import org.apache.commons.lang.StringUtils
 import edu.uci.ics.crawler4j.url.URLCanonicalizer
@@ -84,7 +83,7 @@ object DislikeController extends Controller with Auth with AuthConfigImpl {
                   inputStream.close()
 
                   //find feature image
-                  val potentialImages = new mutable.HashSet[String]
+                  val potentialImages = new ListBuffer[String]
                   val urlValidator = new UrlValidator(Array("http", "https"))
                   article.images.foreach(image => {
                     val imgSrc = UrlBuilder.fromString(image.src).toString
@@ -109,13 +108,13 @@ object DislikeController extends Controller with Auth with AuthConfigImpl {
                           val inputStream = new ByteArrayInputStream(bytes)
                           val image = ImageIO.read(inputStream)
                           val score = image.getWidth + image.getHeight
-                          if (score >= 300) {
+                          if (score >= 200) {
                             scoreImage += image -> score
                           }
                           inputStream.close()
 
                           //Avoid download too much images, if the image score is 600, definitely it is good.
-                          if (score >= 600) {
+                          if (score >= 400) {
                             skip = true
                           }
 

@@ -7,7 +7,7 @@
         </div>
         <div class="home-item-content span9">
             <div class="home-item-status">
-                <a href="/wall/@postedUser.username">@postedUser.name</a> vừa không thích
+                <a href="/wall/@postedUser.username">@postedUser.name</a> vừa đăng
             </div>
             <div>@dislike.content</div>
             <div>
@@ -22,7 +22,7 @@
 
                 @dislike.featureImage.map{image =>
                     <div class="span3" style="padding-right: 5px">
-                        <img src="/dislike/featureImage/@dislike.id" alt="">
+                        <a href='@dislike.url.getOrElse("#")' target="_blank"><img src="/dislike/featureImage/@dislike.id" alt=""></a>
                     </div>
                 }
 
