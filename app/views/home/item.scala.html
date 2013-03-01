@@ -11,6 +11,21 @@
             </div>
             <div>@dislike.content</div>
             <div>
+                @dislike.title.map{title =>
+                    <a href='@dislike.url.getOrElse("#")' target="_blank"><h5>@title</h5></a>
+                }
+                @dislike.image.map{image =>
+                    <a href='@dislike.url.getOrElse("#")' target="_blank">
+                        <img src="/dislike/image/@dislike._id" alt="" width="480">
+                    </a>
+                }
+                @dislike.description.map{description =>
+                    <div>
+                        @description
+                    </div>
+                }
+            </div>
+            <div>
                 <a href="">Ném đá</a> -
                 <a href="">Chém gió</a>
             </div>

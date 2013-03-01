@@ -20,6 +20,10 @@ case class Dislike(
                     _id: ObjectId = new ObjectId(),
                     content: String,
                     userId: ObjectId,
+                    url: Option[String] = None,
+                    image: Option[Array[Byte]] = None,
+                    title: Option[String] = None,
+                    description: Option[String] = None,
                     created: DateTime = DateTime.now()
                     ) extends BaseModel(_id)
 
