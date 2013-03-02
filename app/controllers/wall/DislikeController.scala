@@ -169,7 +169,9 @@ object DislikeController extends Controller with Auth with AuthConfigImpl {
         val inputStream = new FileInputStream(input.ref.file)
         val image = ImageIO.read(inputStream)
         if (image != null) {
-          val bytes = IOUtils.toByteArray(inputStream)
+          val outputStream = new ByteArrayOutputStream
+          Thumbnails.of(image).size(500, 500).outputFormat("jpeg").toOutputStream(outputStream)
+          val bytes = outputStream.toByteArray
           if (bytes.size > 0) {
             val dislike = Dislike(
               content = "",
@@ -179,6 +181,7 @@ object DislikeController extends Controller with Auth with AuthConfigImpl {
             Dislike.insert(dislike)
           }
           image.flush()
+          outputStream.close()
         }
         inputStream.close()
       })
