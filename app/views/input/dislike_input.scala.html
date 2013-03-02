@@ -2,14 +2,36 @@
 @import controllers.wall._
 
 <div>
-    <form class="form-inline" action="@routes.DislikeController.post" method="post">
-        <input id="dislike-input" class="span10" type="text" name="content" placeholder="Nói cho bạn bè biết bạn không thích cái gì?">
-        <button type="submit" class="btn">Post</button>
-    </form>
+    <ul id="dislike_input_tab" class="nav nav-tabs">
+        <li class="active">
+            <a href="#dislike_input_status">Update Status</a>
+        </li>
+        <li>
+            <a href="#dislike_input_image">Add Image</a>
+        </li>
+    </ul>
+</div>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="dislike_input_status">
+        <form class="form-inline" action="@routes.DislikeController.post" method="post">
+            <input id="dislike-input" class="span10" type="text" name="content" placeholder="Hãy nói lên ý kiến của bạn với mọi nguời!">
+        </form>
+    </div>
+    <div class="tab-pane" id="dislike_input_image">
+        <form class="form-inline" action="@routes.DislikeController.postImage" method="post" enctype="multipart/form-data">
+            <input type="file" name="image">
+            <input type="submit" class="btn" value="Post">
+        </form>
+    </div>
 </div>
 
 <script type="text/javascript">
     $(function() {
       $("#dislike-input").focus();
+      $('#dislike_input_tab a').click(function (e) {
+          e.preventDefault();
+          $(this).tab('show');
+      });
     })
 </script>

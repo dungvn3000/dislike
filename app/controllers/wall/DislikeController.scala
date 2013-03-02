@@ -162,6 +162,10 @@ object DislikeController extends Controller with Auth with AuthConfigImpl {
     }
   })
 
+  def postImage = authorizedAction(NormalUser)(implicit user => implicit request => {
+    Ok
+  })
+
   def image(id: ObjectId) = authorizedAction(NormalUser)(implicit user => implicit request => {
     val dislike = Dislike.findOneById(id).getOrElse(throw new Exception("Can't find id " + id))
     dislike.image.map(bytes => {

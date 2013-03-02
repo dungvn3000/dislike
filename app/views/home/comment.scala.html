@@ -2,7 +2,7 @@
 
 @import controllers.wall._
 
-<div class="home-item-comment">
+<div class="home-item-comment" id='home-item-comment-@dislike.id'>
     <ul id="home-item-comment-list-@dislike._id">
         @comments.map {comment =>
             @users.find(_._id == comment.userId).map {user =>
@@ -40,3 +40,4 @@
         </li>
     </ul>
 </div>
+<br>

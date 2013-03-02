@@ -50,3 +50,7 @@ function delete_comment(id, url) {
         }
     })
 }
+
+function show_comment(id) {
+    $('#' + id).show();
+}

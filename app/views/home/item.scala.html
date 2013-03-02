@@ -1,6 +1,6 @@
 @(dislike: Dislike, comments: List[Comment], users: List[User])(implicit user: User)
 
-<div class="well-small row-fluid">
+<div class="row-fluid home-item-container">
     @users.find(_._id == dislike.userId).map{postedUser =>
         <div class="home-item-avatar">
             <img src="/profile/avatar/@postedUser.username" alt="dungvn3000">
@@ -33,8 +33,10 @@
                 }
             </div>
             <div>
-                <a href="">Ném đá</a> -
-                <a href="">Chém gió</a>
+                <a href="#" onclick="return false;">Ném đá</a> -
+                <a href="#" onclick="show_comment('home-item-comment-@dislike.id');return false;">
+                    @if(!comments.isEmpty){(@comments.size)} Bình luận
+                </a>
             </div>
             <div class="clearfix"></div>
             <br>
@@ -44,4 +46,3 @@
 
 </div>
 <div class="clearfix"></div>
-<hr>
