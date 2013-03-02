@@ -1,8 +1,8 @@
-@(dislike: Dislike, comments: List[Comment], users: List[User])(implicit user: User)
+@(dislike: Dislike, comments: List[Comment], users: List[User], explandComment: Boolean = false)(implicit user: User)
 
 @import controllers.wall._
 
-<div class="home-item-comment" id='home-item-comment-@dislike.id'>
+<div class="home-item-comment" id='home-item-comment-@dislike.id' style="@if(!explandComment) {display: none}">
     <ul id="home-item-comment-list-@dislike._id">
         @comments.map {comment =>
             @users.find(_._id == comment.userId).map {user =>

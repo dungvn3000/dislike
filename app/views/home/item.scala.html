@@ -1,4 +1,4 @@
-@(dislike: Dislike, comments: List[Comment], users: List[User])(implicit user: User)
+@(dislike: Dislike, comments: List[Comment], users: List[User], explandComment: Boolean = false)(implicit user: User)
 
 <div class="row-fluid home-item-container">
     @users.find(_._id == dislike.userId).map{postedUser =>
@@ -40,7 +40,7 @@
             </div>
             <div class="clearfix"></div>
             <br>
-            @comment(dislike, comments, users)
+            @comment(dislike, comments, users, explandComment)
         </div>
     }
 

@@ -37,7 +37,8 @@ object CommentController extends Controller with Auth with AuthConfigImpl {
           val notification = new Notification(
             message = "vừa bình luận trên bài viết của bạn",
             fromUserId = user._id,
-            toUserId = dislike.userId
+            toUserId = dislike.userId,
+            dislikeId = dislikeId
           )
           Notification.insert(notification)
         }

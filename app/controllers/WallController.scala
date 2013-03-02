@@ -4,6 +4,7 @@ import play.api.mvc._
 import auth.AuthConfigImpl
 import jp.t2v.lab.play20.auth.Auth
 import models.{Notification, User, Dislike, NormalUser}
+import org.bson.types.ObjectId
 
 object WallController extends Controller with Auth with AuthConfigImpl {
 
@@ -23,4 +24,10 @@ object WallController extends Controller with Auth with AuthConfigImpl {
     }).getOrElse(BadRequest)
   })
 
+  def view(id: ObjectId) = authorizedAction(NormalUser)(implicit user => implicit request => {
+    val result = Dislike.findUserDislikeAndComment(id)
+    val users = User.findAll().toList
+    implicit val notifications = Notification.findByUserId(user._id)
+    Ok(views.html.wall(result._1, result._2, users))
+  })
 }

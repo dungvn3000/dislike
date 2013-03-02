@@ -7,6 +7,7 @@ GET     /                           controllers.HomeController.index
 # Wall page
 GET     /wall                       controllers.WallController.index
 GET     /wall/:username             controllers.WallController.wall(username: String)
+GET     /wall/view/:id              controllers.WallController.view(id: ObjectId)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

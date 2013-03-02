@@ -21,6 +21,7 @@ case class Notification(
                          message: String,
                          fromUserId: ObjectId,
                          toUserId: ObjectId,
+                         dislikeId: ObjectId,
                          create: DateTime = DateTime.now()) extends BaseModel(_id)
 
 object Notification extends ModelCompanion[Notification, ObjectId] {

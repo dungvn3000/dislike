@@ -7,17 +7,11 @@
     <div class="row-fluid">
         <div class="span9 block well-small home-content row-fluid">
             @dislikes.map { dislike =>
-                @home.item(dislike, comments.filter(_.dislikeId == dislike._id), users)
+                @home.item(dislike, comments.filter(_.dislikeId == dislike._id), users, explandComment = dislikes.size == 1)
             }
         </div>
         @right_sidebar()(userWall.getOrElse(user))
     </div>
-
-
-
-    <script type="text/javascript">
-
-    </script>
 
     <!--<div id="navigation" class="span6">-->
         <!--<ul class="pager">-->

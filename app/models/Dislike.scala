@@ -48,4 +48,10 @@ object Dislike extends ModelCompanion[Dislike, ObjectId] {
     })
     (dislikes, comments.toList)
   }
+
+  def findUserDislikeAndComment(dislikeId: ObjectId) = {
+    val dislike = findOneById(dislikeId).getOrElse(throw new Exception("can't find dislike id " + dislikeId))
+    val comments = Comment.find(MongoDBObject("dislikeId" -> dislikeId)).sort(MongoDBObject("created" -> 1)).toList
+    (List(dislike), comments)
+  }
 }
