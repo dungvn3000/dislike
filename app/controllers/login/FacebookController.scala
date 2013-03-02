@@ -56,7 +56,11 @@ object FacebookController extends Controller with LoginLogout with AuthConfigImp
 
   private def createOrGetUser(user: com.restfb.types.User) = {
     val userInDb = User.findByUserName(user.getUsername).getOrElse {
-      val newUser = User(username = user.getUsername, name = user.getName, email = user.getEmail)
+      var newUser = User(username = user.getUsername, name = user.getName)
+      if(!StringUtils.isBlank(user.getEmail)) {
+        newUser = newUser.copy(email = Some(user.getEmail))
+      }
+
       User.insert(newUser)
       newUser
     }

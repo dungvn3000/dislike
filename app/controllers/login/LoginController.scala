@@ -40,7 +40,7 @@ object LoginController extends Controller with LoginLogout with AuthConfigImpl {
 
   def createOrGetUser(username: String) = {
     val userInDb = User.findByUserName(username).getOrElse {
-      val newUser = User(username = username, name = username, email = "")
+      val newUser = User(username = username, name = username)
       User.insert(newUser)
       newUser
     }

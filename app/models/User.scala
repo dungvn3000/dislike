@@ -20,7 +20,7 @@ case class User(
                  avatar: Option[Array[Byte]] = None,
                  quote: String = "",
                  name: String,
-                 email: String
+                 email: Option[String] = None
                  )
 
 object User extends ModelCompanion[User, ObjectId] {
