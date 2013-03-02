@@ -15,7 +15,7 @@ class HackIdContainer extends IdContainer[String] {
   def remove(token: AuthenticityToken) {}
 
   //Dummy user.
-  def get(token: AuthenticityToken) = Some("phanhongphucit")
+  def get(token: AuthenticityToken) = Some("dungvn3000")
 
   def prolongTimeout(token: AuthenticityToken, timeoutInSeconds: Int) {}
 }

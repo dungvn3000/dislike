@@ -19,6 +19,7 @@ import collection.mutable.ListBuffer
 case class Notification(
                          _id: ObjectId = new ObjectId,
                          message: String,
+                         description: Option[String] = None,
                          fromUserId: ObjectId,
                          toUserId: ObjectId,
                          dislikeId: ObjectId,

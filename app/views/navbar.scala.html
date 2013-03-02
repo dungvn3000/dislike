@@ -17,8 +17,8 @@
                     @notifications.map{notification =>
                     <li>
                         <a href="/wall/view/@notification.dislikeId">
-                            <img src="/profile/avatar/@users.find(_._id == notification.fromUserId).get.username" alt="" style="width: 50px; height: 50px !important;">
                             <span style="vertical-align: top">
+                                <img src="/profile/avatar/@users.find(_._id == notification.fromUserId).get.username" alt="" style="width: 50px; height: 50px !important;">
                                 <strong style="vertical-align: top">@users.find(_._id == notification.fromUserId).get.name </strong> @notification.message
                             </span>
                         </a>

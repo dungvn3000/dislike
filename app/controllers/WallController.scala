@@ -5,6 +5,8 @@ import auth.AuthConfigImpl
 import jp.t2v.lab.play20.auth.Auth
 import models.{Notification, User, Dislike, NormalUser}
 import org.bson.types.ObjectId
+import com.mongodb.Mongo
+import com.mongodb.casbah.commons.MongoDBObject
 
 object WallController extends Controller with Auth with AuthConfigImpl {
 
@@ -25,6 +27,7 @@ object WallController extends Controller with Auth with AuthConfigImpl {
   })
 
   def view(id: ObjectId) = authorizedAction(NormalUser)(implicit user => implicit request => {
+    Notification.remove(MongoDBObject("dislikeId" -> id, "toUserId" -> user._id))
     val result = Dislike.findUserDislikeAndComment(id)
     val users = User.findAll().toList
     implicit val notifications = Notification.findByUserId(user._id)

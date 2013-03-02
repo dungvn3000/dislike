@@ -7,6 +7,8 @@ import auth.AuthConfigImpl
 import play.api.data.Form
 import play.api.data.Forms._
 import org.bson.types.ObjectId
+import com.mongodb.casbah.commons.MongoDBObject
+import org.apache.commons.lang.StringUtils
 
 /**
  * The Class CommentController.
@@ -34,13 +36,21 @@ object CommentController extends Controller with Auth with AuthConfigImpl {
         Comment.insert(comment)
 
         if (user._id != dislike.userId) {
-          val notification = new Notification(
-            message = "vừa bình luận trên bài viết của bạn",
-            fromUserId = user._id,
-            toUserId = dislike.userId,
-            dislikeId = dislikeId
-          )
-          Notification.insert(notification)
+          val result = Notification.findOne(MongoDBObject(
+            "fromUserId" -> user._id,
+            "toUserId" -> dislike.userId,
+            "dislikeId" -> dislikeId
+          ))
+          if (result.isEmpty) {
+            val notification = new Notification(
+              message = "vừa bình luận trên bài viết của bạn",
+              fromUserId = user._id,
+              toUserId = dislike.userId,
+              dislikeId = dislikeId,
+              description = if (StringUtils.isNotBlank(dislike.content)) Some(dislike.content) else None
+            )
+            Notification.insert(notification)
+          }
         }
 
         Ok(comment.id)
