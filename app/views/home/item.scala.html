@@ -15,8 +15,8 @@
                     <a href='@dislike.url.getOrElse("#")' target="_blank"><h5>@title</h5></a>
                 }
                 @dislike.image.map{image =>
-                    <a href='@dislike.url.getOrElse("#")' target="_blank">
-                        <img src="/dislike/image/@dislike._id" alt="" width="300" style="height: 300px !important;">
+                    <a @if(!dislike.url.isEmpty){href='@dislike.url.getOrElse("#")' target="_blank"}>
+                        <img src="/dislike/image/@dislike._id" alt="" style="max-height: 250px;">
                     </a>
                 }
 
@@ -35,7 +35,7 @@
             <div>
                 <a href="#" onclick="return false;">Ném đá</a> -
                 <a href="#" onclick="show_comment('home-item-comment-@dislike.id');return false;">
-                    @if(!comments.isEmpty){(@comments.size)} Bình luận
+                    @if(!comments.isEmpty){(@comments.size)} Chém gió
                 </a>
             </div>
             <div class="clearfix"></div>

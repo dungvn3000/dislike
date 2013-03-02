@@ -16,7 +16,7 @@ import ExecutionContext.Implicits.global
 import play.api.Logger
 import org.bson.types.ObjectId
 import play.api.libs.iteratee.Enumerator
-import java.io.{ByteArrayOutputStream, ByteArrayInputStream}
+import java.io.{FileInputStream, ByteArrayOutputStream, ByteArrayInputStream}
 import javax.imageio.ImageIO
 import net.coobird.thumbnailator.Thumbnails
 import org.linkerz.parser.ArticleParser
@@ -29,6 +29,7 @@ import org.apache.http.client.utils.URIUtils
 import java.net.URI
 import collection.mutable.ListBuffer
 import java.awt.image.BufferedImage
+import org.apache.commons.io.IOUtils
 
 /**
  * The Class DislikeController.
@@ -163,7 +164,21 @@ object DislikeController extends Controller with Auth with AuthConfigImpl {
   })
 
   def postImage = authorizedAction(NormalUser)(implicit user => implicit request => {
-    Ok
+    request.body.asMultipartFormData.map(data => {
+      data.file("image").map(image => {
+        val input = new FileInputStream(image.ref.file)
+        val bytes = IOUtils.toByteArray(input)
+        if (bytes.size > 0) {
+          val dislike = Dislike(
+            content = "",
+            userId = user._id,
+            image = Some(bytes)
+          )
+          Dislike.insert(dislike)
+        }
+      })
+    })
+    Redirect(controllers.routes.HomeController.index())
   })
 
   def image(id: ObjectId) = authorizedAction(NormalUser)(implicit user => implicit request => {
