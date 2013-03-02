@@ -1,4 +1,4 @@
-@(title: String)(content: Html)(implicit user: User)
+@(title: String, users: List[User])(content: Html)(implicit user: User, notifications: List[Notification])
 
 <!DOCTYPE html>
 <html>
@@ -8,7 +8,7 @@
     <body>
 
         <div id="topmenu" class="navbar navbar-fixed-top">
-            @navbar()
+            @navbar(users)
         </div>
 
         <div class="container well-small" style="margin-top: 40px">

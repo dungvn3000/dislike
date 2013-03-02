@@ -3,7 +3,7 @@ package controllers
 import jp.t2v.lab.play20.auth.Auth
 import auth.AuthConfigImpl
 import play.api.mvc.{ResponseHeader, SimpleResult, Controller}
-import models.{User, NormalUser}
+import models.{Notification, User, NormalUser}
 import java.io.{ByteArrayInputStream, FileInputStream}
 import org.apache.commons.io.IOUtils
 import play.api.data._
@@ -20,7 +20,9 @@ import play.api.libs.iteratee.Enumerator
 object ProfileController extends Controller with Auth with AuthConfigImpl {
 
   def index = authorizedAction(NormalUser)(implicit user => implicit request => {
-    Ok(views.html.profile_page())
+    implicit val notifications = Notification.findByUserId(user._id)
+    val users = User.findAll().toList
+    Ok(views.html.profile_page(users))
   })
 
   def update = authorizedAction(NormalUser)(implicit user => implicit request => {
@@ -43,8 +45,9 @@ object ProfileController extends Controller with Auth with AuthConfigImpl {
     })
 
     User.save(updateUser)
-
-    Ok(views.html.profile_page()(updateUser))
+    implicit val notifications = Notification.findByUserId(user._id)
+    val users = User.findAll().toList
+    Ok(views.html.profile_page(users)(updateUser, notifications))
   })
 
   def avatar = authorizedAction(NormalUser)(implicit user => implicit request => {

@@ -1,4 +1,4 @@
-@()(implicit user: User)
+@(users: List[User])(implicit user: User, notifications: List[Notification])
 
 <div class="navbar-inner">
     <div class="container">
@@ -8,25 +8,29 @@
             <li>
                 <a href="@routes.HomeController.index">Home</a>
             </li>
+            @if(!notifications.isEmpty) {
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="icon-comment"></i>
                 </a>
                 <ul class="dropdown-menu">
+                    @notifications.map{notification =>
                     <li>
                         <a href="/profile">
-                            <div style="vertical-align: top">
-                                <img src="/assets/img/dungvn3000.jpg" alt="" style="width: 50px; height: 50px !important;">
-                                Anh nam noc vua moi comment vao status cua ban
-                            </div>
+                            <img src="/profile/avatar/@users.find(_._id == notification.fromUserId).get.username" alt="" style="width: 50px; height: 50px !important;">
+                            <span style="vertical-align: top">
+                                <strong style="vertical-align: top">@users.find(_._id == notification.fromUserId).get.name </strong> @notification.message
+                            </span>
                         </a>
                     </li>
                     <li class="divider"></li>
+                    }
                     <li>
                         <a href="#">See all</a>
                     </li>
                 </ul>
             </li>
+            }
             <!--<li>-->
                 <!--<a href="@routes.WallController.index">Wall</a>-->
             <!--</li>-->

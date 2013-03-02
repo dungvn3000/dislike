@@ -1,6 +1,6 @@
-@()(implicit user: User)
+@(users: List[User])(implicit user: User,notifications: List[Notification])
 
-@main(Messages("application.title")) {
+@main(Messages("application.title"), users) {
     <div class="span9 block well-small home-content row-fluid">
         <form action="/profile/update" method="post" enctype="multipart/form-data">
             <fieldset>

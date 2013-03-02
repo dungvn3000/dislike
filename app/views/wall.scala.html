@@ -1,6 +1,6 @@
-@(dislikes: List[Dislike], comments: List[Comment], users: List[User], userWall: Option[User] = None)(implicit user: User)
+@(dislikes: List[Dislike], comments: List[Comment], users: List[User], userWall: Option[User] = None)(implicit user: User, notifications: List[Notification])
 
-@main(Messages("application.title")) {
+@main(Messages("application.title"), users) {
 
     @helper.requireJs(core = routes.Assets.at("js/lib/require.js").url, module = routes.Assets.at("js/wall/comment").url, folder = "js")
 
