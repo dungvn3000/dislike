@@ -53,7 +53,7 @@ object ProfileController extends Controller with Auth with AuthConfigImpl {
         header = ResponseHeader(200, Map(CONTENT_TYPE -> "image/jpeg")),
         body = Enumerator.fromStream(new ByteArrayInputStream(bytes))
       )
-    }).getOrElse(Redirect("/assets/img/tool/beat-brick-icon.png"))
+    }).getOrElse(Redirect("/assets/img/noavatar.gif"))
   })
 
   def avatarOf(username: String) = authorizedAction(NormalUser)(implicit user => implicit request => {
@@ -63,7 +63,7 @@ object ProfileController extends Controller with Auth with AuthConfigImpl {
           header = ResponseHeader(200, Map(CONTENT_TYPE -> "image/jpeg")),
           body = Enumerator.fromStream(new ByteArrayInputStream(bytes))
         )
-      }).getOrElse(Redirect("/assets/img/tool/beat-brick-icon.png"))
+      }).getOrElse(Redirect("/assets/img/noavatar.gif"))
     }).getOrElse(BadRequest)
   })
 
