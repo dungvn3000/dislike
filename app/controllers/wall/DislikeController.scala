@@ -165,17 +165,22 @@ object DislikeController extends Controller with Auth with AuthConfigImpl {
 
   def postImage = authorizedAction(NormalUser)(implicit user => implicit request => {
     request.body.asMultipartFormData.map(data => {
-      data.file("image").map(image => {
-        val input = new FileInputStream(image.ref.file)
-        val bytes = IOUtils.toByteArray(input)
-        if (bytes.size > 0) {
-          val dislike = Dislike(
-            content = "",
-            userId = user._id,
-            image = Some(bytes)
-          )
-          Dislike.insert(dislike)
+      data.file("image").map(input => {
+        val inputStream = new FileInputStream(input.ref.file)
+        val image = ImageIO.read(inputStream)
+        if (image != null) {
+          val bytes = IOUtils.toByteArray(inputStream)
+          if (bytes.size > 0) {
+            val dislike = Dislike(
+              content = "",
+              userId = user._id,
+              image = Some(bytes)
+            )
+            Dislike.insert(dislike)
+          }
+          image.flush()
         }
+        inputStream.close()
       })
     })
     Redirect(controllers.routes.HomeController.index())

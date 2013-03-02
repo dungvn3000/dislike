@@ -20,7 +20,7 @@
     </div>
     <div class="tab-pane" id="dislike_input_image">
         <form class="form-inline" action="@routes.DislikeController.postImage" method="post" enctype="multipart/form-data">
-            <input type="file" name="image">
+            <input type="file" name="image" accept="image/jpg,image/gif">
             <input type="submit" class="btn" value="Post">
         </form>
     </div>
